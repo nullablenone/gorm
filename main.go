@@ -12,4 +12,7 @@ func main() {
 	if err != nil{
 		log.Fatal("Gagal membuat table:", err)
 	}
+
+	yesa := models.User{Nama: "muhamad yesa", Email: "yesa@gmail.com"}
+	configs.DB.Create(&yesa)
 }
