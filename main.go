@@ -19,7 +19,14 @@ func main() {
 	// configs.DB.Create(&yesa)
 
 	// mengambil data
-	var user models.User
-	configs.DB.First(&user, 1)
-	fmt.Printf("ID : %d , Nama : %s. Email : %s ", user.ID, user.Nama, user.Email)
+	// var user models.User
+	// configs.DB.First(&user, 1)
+	// fmt.Printf("ID : %d , Nama : %s. Email : %s ", user.ID, user.Nama, user.Email)
+
+	// mengambil semua data
+	var user []models.User
+	configs.DB.Find(&user)
+	for _, item := range user {
+		fmt.Printf("ID : %d , Nama : %s. Email : %s \n", item.ID, item.Nama, item.Email)
+	}
 }
