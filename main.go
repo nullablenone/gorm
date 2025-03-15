@@ -24,9 +24,14 @@ func main() {
 	// fmt.Printf("ID : %d , Nama : %s. Email : %s ", user.ID, user.Nama, user.Email)
 
 	// mengambil semua data
-	var user []models.User
-	configs.DB.Find(&user)
-	for _, item := range user {
-		fmt.Printf("ID : %d , Nama : %s. Email : %s \n", item.ID, item.Nama, item.Email)
-	}
+	// var user []models.User
+	// configs.DB.Find(&user)
+	// for _, item := range user {
+	// 	fmt.Printf("ID : %d , Nama : %s. Email : %s \n", item.ID, item.Nama, item.Email)
+	// }
+
+	//menagambil berdasarkan kondisi
+	var user models.User
+	configs.DB.Where("email = ? ", "nullablenone@gmail.com").First(&user)
+	fmt.Printf("ID : %d , Nama : %s. Email : %s ", user.ID, user.Nama, user.Email)
 }
