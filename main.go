@@ -35,7 +35,12 @@ func main() {
 	// fmt.Printf("ID : %d , Nama : %s. Email : %s ", user.ID, user.Nama, user.Email)
 
 	//memperbarui data
+	// var user models.User
+	// configs.DB.First(&user, 2)
+	// configs.DB.Model(&user).Updates(models.User{Nama: "test", Email: "test@gmail.com"})
+
+	//hapus data
 	var user models.User
-	configs.DB.First(&user, 2)
-	configs.DB.Model(&user).Updates(models.User{Nama: "test", Email: "test@gmail.com"})
+	configs.DB.First(&user, 4)
+	configs.DB.Delete(&user)
 }
