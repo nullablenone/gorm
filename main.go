@@ -7,40 +7,29 @@ import (
 )
 
 func main() {
-	configs.ConnectDB()
+	db := configs.ConnectDB()
 	err := configs.DB.AutoMigrate(&models.User{})
 	if err != nil {
 		log.Fatal("Gagal membuat table:", err)
 	}
 
-	// menambah data
-	// yesa := models.User{Nama: "muhamad yesa", Email: "yesa@gmail.com"}
-	// configs.DB.Create(&yesa)
+	err = db.AutoMigrate(&models.User{}, &models.Profile{})
+	if err != nil {
+		log.Fatal("gagal membuat relasi")
+	}
 
-	// mengambil data
-	// var user models.User
-	// configs.DB.First(&user, 1)
-	// fmt.Printf("ID : %d , Nama : %s. Email : %s ", user.ID, user.Nama, user.Email)
+	user := models.User{
+		Nama:  "muhamad yesa",
+		Email: "nullablenone@gmail.com",
+		Profile: models.Profile{
+			Bio: "im a golang developer, amin",
+		},
+	}
 
-	// mengambil semua data
-	// var user []models.User
-	// configs.DB.Find(&user)
-	// for _, item := range user {
-	// 	fmt.Printf("ID : %d , Nama : %s. Email : %s \n", item.ID, item.Nama, item.Email)
-	// }
+	if test := db.Create(&user).Error; test != nil {
+		log.Fatal(test.Error())
+	}
 
-	//menagambil berdasarkan kondisi
-	// var user models.User
-	// configs.DB.Where("email = ? ", "nullablenone@gmail.com").First(&user)
-	// fmt.Printf("ID : %d , Nama : %s. Email : %s ", user.ID, user.Nama, user.Email)
+	log.Println("berhasil !")
 
-	//memperbarui data
-	// var user models.User
-	// configs.DB.First(&user, 2)
-	// configs.DB.Model(&user).Updates(models.User{Nama: "test", Email: "test@gmail.com"})
-
-	//hapus data
-	var user models.User
-	configs.DB.First(&user, 4)
-	configs.DB.Delete(&user)
 }
