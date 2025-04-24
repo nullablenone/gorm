@@ -3,6 +3,7 @@ package main
 import (
 	"belajar_gorm/configs"
 	"belajar_gorm/models"
+	"fmt"
 	"log"
 )
 
@@ -18,17 +19,27 @@ func main() {
 		log.Fatal("gagal membuat relasi")
 	}
 
-	user := models.User{
-		Nama:  "muhamad yesa",
-		Email: "nullablenone@gmail.com",
-		Profile: models.Profile{
-			Bio: "im a golang developer, amin",
-		},
-	}
+	// membuat data
 
-	if test := db.Create(&user).Error; test != nil {
+	// user := models.User{
+	// 	Nama:  "muhamad yesa",
+	// 	Email: "nullablenone@gmail.com",
+	// 	Profile: models.Profile{
+	// 		Bio: "im a golang developer, amin",
+	// 	},
+	// }
+
+	// if test := db.Create(&user).Error; test != nil {
+	// 	log.Fatal(test.Error())
+	// }
+
+	//fetch data + relasinya
+	var user models.User
+	if test := db.Preload("Profile").First(&user, 1).Error; test != nil {
 		log.Fatal(test.Error())
 	}
+	fmt.Println(user.Nama)
+	fmt.Println(user.Profile.Bio)
 
 	log.Println("berhasil !")
 
