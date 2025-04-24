@@ -33,14 +33,17 @@ func main() {
 	// 	log.Fatal(test.Error())
 	// }
 
-	//fetch data + relasinya
 	var user models.User
-	if test := db.Preload("Profile").First(&user, 1).Error; test != nil {
-		log.Fatal(test.Error())
-	}
-	fmt.Println(user.Nama)
-	fmt.Println(user.Profile.Bio)
 
+	//fetch data + relasinya
+	// if test := db.Preload("Profile").First(&user, 1).Error; test != nil {
+	// 	log.Fatal(test.Error())
+	// }
+	// fmt.Println(user.Nama)
+	// fmt.Println(user.Profile.Bio)
+
+	db.Model(&user.Profile).Update("bio", "bio di update")
+	fmt.Println(user.Profile.Bio)
 	log.Println("berhasil !")
 
 }
