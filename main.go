@@ -46,4 +46,7 @@ func main() {
 	fmt.Println(user.Profile.Bio)
 	log.Println("berhasil !")
 
+	//noted
+	// delete masih sama, kurang lebih
+
 }
